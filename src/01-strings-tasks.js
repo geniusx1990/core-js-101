@@ -206,8 +206,28 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let result = '';
+  for (let i = 1; i <= height; i += 1) {
+    for (let j = 1; j <= width; j += 1) {
+      if (i === 1) {
+        if (j === 1) { result += '┌'; }
+        if (j === width) { result += '┐\n'; }
+        if (j > 1 && j < width) { result += '─'; }
+      }
+      if (i > 1 && i < height) {
+        if (j === 1) { result += '│'; }
+        if (j === width) { result += '│\n'; }
+        if (j > 1 && j < width) { result += ' '; }
+      }
+      if (i === height) {
+        if (j === 1) { result += '└'; }
+        if (j === width) { result += '┘\n'; }
+        if (j > 1 && j < width) { result += '─'; }
+      }
+    }
+  }
+  return result;
 }
 
 
@@ -227,8 +247,22 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  let result = '';
+  const alpabet = 'abcdefghijklmnopqrstuvwxyzabcdefghijklm';
+  const alphabetUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM';
+  for (let i = 0; i < str.length; i += 1) {
+    if (alpabet.includes(str[i]) || alphabetUpper.includes(str[i])) {
+      if (str[i] === str[i].toUpperCase()) {
+        result += alphabetUpper[alphabetUpper.indexOf(str[i]) + 13];
+      } else {
+        result += alpabet[alpabet.indexOf(str[i]) + 13];
+      }
+    } else {
+      result += str[i];
+    }
+  }
+  return result;
 }
 
 /**
@@ -244,8 +278,14 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  let result;
+  if (typeof value === 'string' || value instanceof String) {
+    result = true;
+  } else {
+    result = false;
+  }
+  return result;
 }
 
 
